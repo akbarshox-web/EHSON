@@ -46,7 +46,7 @@ export function HomePage() {
               transition={{ delay: 0.2 }}
               className="mt-5 text-lg text-slate-600 dark:text-slate-300 max-w-xl"
             >
-              EHSON.uz — yordamga muhtoj odamlar bilan mehribon insonlarni bog'lovchi ishonchli platforma.
+              EHSONLAR.VERCEL.APP — yordamga muhtoj odamlar bilan mehribon insonlarni bog'lovchi ishonchli platforma.
               Ehson bering, hayot o'zgartiring.
             </motion.p>
 

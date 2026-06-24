@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage'
 import { EhsonOluvchilarPage } from './pages/EhsonOluvchilarPage'
 import { EhsonKiritishPage } from './pages/EhsonKiritishPage'
 import { RecipientDetailPage } from './pages/RecipientDetailPage'
+import { MyDonationsPage } from './pages/MyDonationsPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import './App.css'
 
@@ -20,6 +21,7 @@ function App() {
               <Route path="/ehson-oluvchilar" element={<EhsonOluvchilarPage />} />
               <Route path="/ehson-oluvchilar/:id" element={<RecipientDetailPage />} />
               <Route path="/ehson-kiritish" element={<EhsonKiritishPage />} />
+              <Route path="/mening-ehsonlarim" element={<MyDonationsPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

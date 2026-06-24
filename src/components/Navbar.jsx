@@ -19,7 +19,7 @@ export function Navbar() {
         <NavLink to="/" className="flex items-center gap-2.5">
           <Logo />
           <div className="leading-tight">
-            <div className="font-display font-extrabold text-lg text-slate-900 dark:text-white">EHSON.uz</div>
+            <div className="font-display font-extrabold text-lg text-slate-900 dark:text-white">EHSONLAR.VERCEL.APP</div>
             <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">Ehson platformasi</div>
           </div>
         </NavLink>
@@ -28,6 +28,7 @@ export function Navbar() {
           <NavLink to="/" end className={linkClass}>Bosh sahifa</NavLink>
           <NavLink to="/ehson-oluvchilar" className={linkClass}>Ehson oluvchilar</NavLink>
           <NavLink to="/ehson-kiritish" className={linkClass}>Ehson kiritish</NavLink>
+          <NavLink to="/mening-ehsonlarim" className={linkClass}>Mening ehsonlarim</NavLink>
         </nav>
 
         <div className="flex items-center gap-2">

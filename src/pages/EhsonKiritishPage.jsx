@@ -6,7 +6,7 @@ import { MediaPreview } from '../components/MediaPreview'
 import {
   Sticker, IconUpload, IconImage, IconVideo, IconMap, IconGlobe,
   IconClipboard, IconCheckCircle, IconHourglass, IconLock, IconShield,
-  IconClose, IconUser, IconCard, IconHand, IconRefresh,
+  IconClose, IconUser, IconCard, IconHand,
 } from '../components/Icons'
 
 const CATEGORIES = ['Bola', 'Tibbiyot', 'Oilaviy', 'Talim', 'Boshqa']
@@ -119,7 +119,7 @@ export function EhsonKiritishPage() {
         ip: ip || 'Aniqlanmadi',
       })
       setSubmitting(false)
-      navigate('/ehson-oluvchilar')
+      navigate('/mening-ehsonlarim')
     }, 700)
   }
 

@@ -1,54 +1,24 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { DataContext } from './dataContextObject'
 
-const STORAGE_KEY = 'ehson-recipients-v1'
+const STORAGE_KEY = 'ehson-recipients-v2'
+const USER_KEY = 'ehson-user-id'
 
-const SEED = [
-  {
-    id: 'r-1',
-    name: 'Madina Karimova',
-    age: 7,
-    region: 'Toshkent sh., Yunusobod t.',
-    story: 'Og\'ir kasallik tufayli uzoq muddatli davolanishga muhtoj. Ota-onaning yordamiga muhtoj.',
-    cardNumber: '9860 1234 5678 9012',
-    phone: '+998 90 123 45 67',
-    category: 'Bola',
-    goal: 25_000_000,
-    geo: { lat: 41.367, lng: 69.247, city: 'Toshkent' },
-    ip: '—',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 3,
-  },
-  {
-    id: 'r-2',
-    name: 'Otabek Nazarov',
-    age: 42,
-    region: 'Samarqand vil., Urgut t.',
-    story: 'Uy-joy yong\'in natijasida vayron bo\'lgan. Oilada 5 nafar farzand bor.',
-    cardNumber: '5614 8821 3344 5566',
-    phone: '+998 91 234 56 78',
-    category: 'Oilaviy',
-    goal: 40_000_000,
-    geo: { lat: 39.408, lng: 67.240, city: 'Urgut' },
-    ip: '—',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 6,
-  },
-  {
-    id: 'r-3',
-    name: 'Nilufar Rahimova',
-    age: 34,
-    region: 'Farg\'ona vil., Qo\'qon sh.',
-    story: 'Yurak operatsiyasi uchun mablag\' kerak. Oilada yolg\'iz boquvchi ona.',
-    cardNumber: '4400 7700 8800 1100',
-    phone: '+998 93 345 67 89',
-    category: 'Tibbiyot',
-    goal: 60_000_000,
-    geo: { lat: 40.540, lng: 70.940, city: "Qo'qon" },
-    ip: '—',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 10,
-  },
-]
+function getOrCreateUserId() {
+  try {
+    let id = localStorage.getItem(USER_KEY)
+    if (!id) {
+      id = 'u-' + (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2))
+      localStorage.setItem(USER_KEY, id)
+    }
+    return id
+  } catch {
+    return 'u-anonymous'
+  }
+}
 
 export function DataProvider({ children }) {
+  const [userId] = useState(getOrCreateUserId)
   const [recipients, setRecipients] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
@@ -56,7 +26,7 @@ export function DataProvider({ children }) {
     } catch {
       // ignore
     }
-    return SEED
+    return []
   })
 
   useEffect(() => {
@@ -69,17 +39,38 @@ export function DataProvider({ children }) {
 
   const addRecipient = useCallback((data) => {
     const id = 'r-' + Date.now().toString(36)
-    const next = { ...data, id, createdAt: Date.now() }
+    const next = { ...data, id, createdAt: Date.now(), createdBy: userId }
     setRecipients(prev => [next, ...prev])
     return id
+  }, [userId])
+
+  const updateRecipient = useCallback((id, patch) => {
+    setRecipients(prev => prev.map(r => (r.id === id ? { ...r, ...patch, updatedAt: Date.now() } : r)))
+  }, [])
+
+  const deleteRecipient = useCallback((id) => {
+    setRecipients(prev => prev.filter(r => r.id !== id))
   }, [])
 
   const getRecipient = useCallback((id) => {
     return recipients.find(r => r.id === id)
   }, [recipients])
 
+  const myRecipients = useMemo(
+    () => recipients.filter(r => r.createdBy === userId),
+    [recipients, userId]
+  )
+
   return (
-    <DataContext.Provider value={{ recipients, addRecipient, getRecipient }}>
+    <DataContext.Provider value={{
+      recipients,
+      addRecipient,
+      updateRecipient,
+      deleteRecipient,
+      getRecipient,
+      myRecipients,
+      userId,
+    }}>
       {children}
     </DataContext.Provider>
   )

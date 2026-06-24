@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="mt-20 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
       <div className="section py-10 grid gap-8 md:grid-cols-3">
         <div>
-          <div className="font-display font-extrabold text-lg text-slate-900 dark:text-white">EHSON.uz</div>
+          <div className="font-display font-extrabold text-lg text-slate-900 dark:text-white">EHSONLAR.VERCEL.APP</div>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-sm">
             O'zbekistondagi yordamga muhtoj odamlar va mehribon insonlar uchun ishonchli platforma.
           </p>
@@ -29,7 +29,7 @@ export function Footer() {
       </div>
       <div className="border-t border-slate-200 dark:border-slate-800">
         <div className="section py-4 text-xs text-slate-500 dark:text-slate-500 flex flex-col sm:flex-row justify-between gap-2">
-          <span>© {new Date().getFullYear()} EHSON.uz — Barcha huquqlar himoyalangan.</span>
+          <span>© {new Date().getFullYear()} EHSONLAR.VERCEL.APP — Barcha huquqlar himoyalangan.</span>
           <span>Yaxshilik — yashashning ma'nosi.</span>
         </div>
       </div>
